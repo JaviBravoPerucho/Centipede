@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
     {
         public Direction currentDirection;
         public float coordenadaX, coordenadaY;
-        public bool haySeta, hayCabeza, hayCuerpo;
+        public bool haySeta, hayCabeza, hayCuerpo, actualizado;
         public GameObject cabeza, cuerpo, seta;
     }
 
@@ -39,12 +39,12 @@ public class GameManager : MonoBehaviour
 
     private void CoordinateSetting()
     {
-        for (int i = 19; i > 0; i--)
+        for (int i = 0; i < 20; i++)
         {
             for (int j = 0; j < 20; j++)
             {
                 CuadroDeJuego[i, j].coordenadaX = j+0.5f;
-                CuadroDeJuego[i, j].coordenadaY = i-0.5f;
+                CuadroDeJuego[i, j].coordenadaY =19 - i +0.5f;
             }
         }
     }
@@ -53,7 +53,7 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < 20; i++)
         {
             for (int j = 0; j < 20; j++)
-            {
+            {              
                 if (CuadroDeJuego[i, j].haySeta)
                 {
                     Vector2 coordenadas = new Vector2(CuadroDeJuego[i, j].coordenadaX, CuadroDeJuego[i, j].coordenadaY);
@@ -62,15 +62,33 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+    public void ActualizadoFalse()
+    {
+        for (int i = 0; i < 20; i++)
+        {
+            for (int j = 0; j < 20; j++)
+            {
+                CuadroDeJuego[i, j].actualizado = false;
+            }
+        }
+    }
 
     private void SnakeInit()
     {
-        CuadroDeJuego[19, 13].hayCabeza = true;
-        CuadroDeJuego[19, 13].currentDirection = Direction.Right;
-        for (int i = 0; i < 12; i++)
+        CuadroDeJuego[0, 13].hayCabeza = true;
+        CuadroDeJuego[0, 13].currentDirection = Direction.Right;
+        for (int i = 2; i < 13; i++)
         {
-            CuadroDeJuego[19, i].hayCuerpo = true;
+            CuadroDeJuego[0, i].hayCuerpo = true;
+            CuadroDeJuego[0, i].currentDirection = Direction.Right;
         }
+    }
+    private void Tests()
+    {
+        Vector2 vector2 = new Vector2(CuadroDeJuego[0, 0].coordenadaX, CuadroDeJuego[0, 0].coordenadaY);
+        Instantiate(Cabeza, vector2, Quaternion.identity);
+        vector2 = new Vector2(CuadroDeJuego[0, 5].coordenadaX, CuadroDeJuego[0, 5].coordenadaY);
+        Instantiate(Cabeza, vector2, Quaternion.identity);
     }
 
     void Awake()
@@ -85,24 +103,48 @@ public class GameManager : MonoBehaviour
         MushroomBoolSetting();
         MushroomInstance();
         SnakeInit();
+        ActualizadoFalse();
+       // Tests();
     }
 
     // Update is called once per frame
     void Update()
     {
-        for (int i = 19; i > 0; i--)
+       
+    }
+    public void ReloadBoard()
+    {
+       // Debug.Log("Actualizado");
+        ActualizadoFalse();
+        for (int i = 0; i < 20; i++)
         {
             for (int j = 0; j < 20; j++)
             {
                 if (CuadroDeJuego[i, j].hayCabeza)
                 {
-                    if(CuadroDeJuego[i, j].cabeza == null)
+                   // Debug.Log("Pintado antes:" + i + "-" + j);
+                  //  if (CuadroDeJuego[i, j].cabeza == null)
                     {
                         Vector2 coordenadas = new Vector2(CuadroDeJuego[i, j].coordenadaX, CuadroDeJuego[i, j].coordenadaY);
                         CuadroDeJuego[i, j].cabeza = Instantiate(Cabeza, coordenadas, Quaternion.identity);
+ 
                     }
                 }
-                else Destroy(CuadroDeJuego[i, j].cabeza);
+                else if(CuadroDeJuego[i, j].cabeza != null && !CuadroDeJuego[i, j].hayCabeza)
+                {
+                    Destroy(CuadroDeJuego[i, j].cabeza);
+                }               
+                if(CuadroDeJuego[i, j].hayCuerpo)
+                {
+
+                    Debug.Log("pintado");
+                    Vector2 coordenadas = new Vector2(CuadroDeJuego[i, j].coordenadaX, CuadroDeJuego[i, j].coordenadaY);
+                    CuadroDeJuego[i, j].cuerpo = Instantiate(Cuerpo, coordenadas, Quaternion.identity);
+                }
+                else if(CuadroDeJuego[i,j].cuerpo != null && !CuadroDeJuego[i, j].hayCuerpo)
+                {
+                    Destroy(CuadroDeJuego[i, j].cuerpo);
+                }
             }
         }
     }
