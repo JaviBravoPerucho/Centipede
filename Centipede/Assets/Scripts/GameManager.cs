@@ -85,12 +85,8 @@ public class GameManager : MonoBehaviour
 
     private void SnakeInit()
     {
-        serpiente[0].currentDirection = Direction.Right;
-        serpiente[0].Y = 0;
-        serpiente[0].X = 13;
-        serpiente[0].isHead= true;
-        serpiente[0].isSnake= true;
-        for (int i = 1; i < serpiente.Length; i++)
+
+        for (int i = 0; i < serpiente.Length; i++)
         {
             serpiente[i].currentDirection = Direction.Right;
             serpiente[i].X = i;
@@ -136,7 +132,7 @@ public class GameManager : MonoBehaviour
             serpiente[i].currentDirection = copia[i].currentDirection;
             serpiente[i].X = copia[i].X;
             serpiente[i].Y = copia[i].Y;
-            serpiente[i].isHead= copia[i].isHead;
+            serpiente[i].isHead = copia[i].isHead;
             
              
         }       
@@ -153,10 +149,25 @@ public class GameManager : MonoBehaviour
         }
         if (copia[0].isSnake) { copia[0].isHead = true; }
     }
+    private void EliminaSerpiente()
+    {
+        for (int i = 0; i < serpiente.Length; i++)
+        {
+            if(serpiente[i].isHead && CuadroDeJuego[serpiente[i].Y, serpiente[i].X].cabeza)
+            {
+               Destroy(CuadroDeJuego[serpiente[i].Y, serpiente[i].X].cabeza);
+            }
+            if(!serpiente[i].isHead && CuadroDeJuego[serpiente[i].Y, serpiente[i].X].cuerpo)
+            {
+               Destroy(CuadroDeJuego[serpiente[i].Y, serpiente[i].X].cuerpo);
+            }
+        }
+    }
     public void ReloadBoard()
     {
        // Debug.Log("Actualizado");
        SetCabezas();
+       EliminaSerpiente();
        CopiaASerpiente();
         for (int i = 0; i < serpiente.Length; i++)
         {
@@ -173,11 +184,7 @@ public class GameManager : MonoBehaviour
                     CuadroDeJuego[serpiente[i].Y, serpiente[i].X].cuerpo = Instantiate(Cuerpo, vector, Quaternion.identity);
                 }
             }
-            else
-            {             
-                    CuadroDeJuego[serpiente[i].Y, serpiente[i].X].cabeza.gameObject.SetActive(false);                              
-                    CuadroDeJuego[serpiente[i].Y, serpiente[i].X].cuerpo.gameObject.SetActive(false);            
-            }
+
         } 
         
            
