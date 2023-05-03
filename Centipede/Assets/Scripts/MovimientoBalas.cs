@@ -7,6 +7,8 @@ public class MovimientoBalas : MonoBehaviour
     private Rigidbody2D _rigidBody2D;
     [SerializeField]
     private float velocidad;
+    [SerializeField]
+    private GameObject seta;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,6 +23,16 @@ public class MovimientoBalas : MonoBehaviour
     }
     void OnCollisionEnter2D(Collision2D collision)
     {
+        if (collision.gameObject.GetComponent<LifeComponent>())
+        {
+            collision.gameObject.GetComponent<LifeComponent>().vida--;
+        }
+        if (collision.gameObject.tag=="Cuerpo"|| collision.gameObject.tag == "Cabeza")
+        {
+            Destroy(collision.gameObject);
+            Instantiate(seta, collision.transform.position, Quaternion.identity);
+        }
+
         Destroy(gameObject);
     }
 }

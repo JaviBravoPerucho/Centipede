@@ -179,3 +179,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   velocidad: 400
+  seta: {fileID: 8144117921908104197, guid: ec3b187f25591044e933b8acc617dde8, type: 3}

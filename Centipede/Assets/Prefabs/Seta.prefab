@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2301788154399006544}
   - component: {fileID: 6322556201173994523}
   - component: {fileID: 474130093561012819}
+  - component: {fileID: 6211556380791499651}
   m_Layer: 0
   m_Name: Seta
   m_TagString: Untagged
@@ -113,3 +114,16 @@ PolygonCollider2D:
     - - {x: 0.012492466, y: 0.07766038}
       - {x: -0.06901011, y: -0.020078808}
       - {x: 0.087748766, y: -0.032571226}
+--- !u!114 &6211556380791499651
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8144117921908104197}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33e92d5c48cec434f824d4a69c4ea192, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  vida: 4
