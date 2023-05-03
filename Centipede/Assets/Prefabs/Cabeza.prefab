@@ -109,8 +109,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1038756375197764444}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.33500004, y: -0.21500003, z: 0}
-  m_LocalScale: {x: 0.129, y: 0.1473, z: 1}
+  m_LocalPosition: {x: 0.329, y: -0.269, z: 0}
+  m_LocalScale: {x: 0.19088128, y: 0.17513971, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5310740950451864217}
@@ -178,6 +178,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5310740950451864217}
   - component: {fileID: 6546855123274770281}
+  - component: {fileID: 5980370551558668897}
   m_Layer: 0
   m_Name: Cabeza
   m_TagString: Untagged
@@ -254,3 +255,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!58 &5980370551558668897
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2884240986512943334}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
