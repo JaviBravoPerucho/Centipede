@@ -42,7 +42,7 @@ public class GameManager : MonoBehaviour
             for (int j = 0; j < 20; j++)
             {
                 if (Random.Range(0, 10) == 0 && i > 10) CuadroDeJuego[i, j].haySeta = true;
-                else if (Random.Range(0, 20) == 0) CuadroDeJuego[i, j].haySeta = true;
+                else if (Random.Range(0, 20) == 0 && i < 19) CuadroDeJuego[i, j].haySeta = true;
             }
         }
     }
@@ -116,6 +116,7 @@ public class GameManager : MonoBehaviour
         MushroomBoolSetting();
         MushroomInstance();
         SnakeInit();
+        InitCopia();
        // Tests();
     }
 
@@ -133,13 +134,18 @@ public class GameManager : MonoBehaviour
             serpiente[i].X = copia[i].X;
             serpiente[i].Y = copia[i].Y;
             serpiente[i].isHead = copia[i].isHead;
-            
-             
         }       
+    }
+    private void InitCopia()
+    {
+        for (int i = 0; i < copia.Length; i++)
+        {
+            copia[i].isSnake = true;
+        }
     }
     public void SetCabezas()
     {
-        for (int i = serpiente.Length -2; i > 1; i--)
+        for (int i = serpiente.Length -2; i > 0; i--)
         {
             if (copia[i + 1].isSnake == false)
             {
@@ -147,17 +153,17 @@ public class GameManager : MonoBehaviour
             }
             else copia[i].isHead = false;
         }
-        if (copia[0].isSnake) { copia[0].isHead = true; }
+        if (copia[serpiente.Length - 1].isSnake) { copia[copia.Length - 1].isHead = true; }
     }
     private void EliminaSerpiente()
     {
-        for (int i = 0; i < serpiente.Length; i++)
+        for (int i = 0; i < serpiente.Length - 1; i++)
         {
             if(serpiente[i].isHead && CuadroDeJuego[serpiente[i].Y, serpiente[i].X].cabeza)
             {
                Destroy(CuadroDeJuego[serpiente[i].Y, serpiente[i].X].cabeza);
             }
-            if(!serpiente[i].isHead && CuadroDeJuego[serpiente[i].Y, serpiente[i].X].cuerpo)
+            else if(!serpiente[i].isHead && CuadroDeJuego[serpiente[i].Y, serpiente[i].X].cuerpo)
             {
                Destroy(CuadroDeJuego[serpiente[i].Y, serpiente[i].X].cuerpo);
             }
@@ -165,21 +171,28 @@ public class GameManager : MonoBehaviour
     }
     public void ReloadBoard()
     {
-       // Debug.Log("Actualizado");
-       SetCabezas();
-       EliminaSerpiente();
-       CopiaASerpiente();
+        EliminaSerpiente();
+        SetCabezas();   
+        CopiaASerpiente();
         for (int i = 0; i < serpiente.Length; i++)
         {
             if (serpiente[i].isSnake)
             {
-                if (serpiente[i].isHead && !CuadroDeJuego[serpiente[i].Y, serpiente[i].X].cabeza)
+                if (serpiente[i].isHead/* && !CuadroDeJuego[serpiente[i].Y, serpiente[i].X].cabeza*/)
                 {
+                    if ( CuadroDeJuego[serpiente[i].Y, serpiente[i].X].cuerpo)
+                    {
+                        Destroy(CuadroDeJuego[serpiente[i].Y, serpiente[i].X].cuerpo);
+                    }
                     Vector2 vector = new Vector2(CuadroDeJuego[serpiente[i].Y, serpiente[i].X].coordenadaX, CuadroDeJuego[serpiente[i].Y, serpiente[i].X].coordenadaY);
                     CuadroDeJuego[serpiente[i].Y, serpiente[i].X].cabeza = Instantiate(Cabeza, vector, Quaternion.identity);                   
                 }
-                else if (!serpiente[i].isHead && !CuadroDeJuego[serpiente[i].Y, serpiente[i].X].cuerpo)
+                else if (!serpiente[i].isHead/* && !CuadroDeJuego[serpiente[i].Y, serpiente[i].X].cuerpo*/)
                 {
+                    if ( CuadroDeJuego[serpiente[i].Y, serpiente[i].X].cabeza)
+                    {
+                        Destroy(CuadroDeJuego[serpiente[i].Y, serpiente[i].X].cabeza);
+                    }
                     Vector2 vector = new Vector2(CuadroDeJuego[serpiente[i].Y, serpiente[i].X].coordenadaX, CuadroDeJuego[serpiente[i].Y, serpiente[i].X].coordenadaY);
                     CuadroDeJuego[serpiente[i].Y, serpiente[i].X].cuerpo = Instantiate(Cuerpo, vector, Quaternion.identity);
                 }
