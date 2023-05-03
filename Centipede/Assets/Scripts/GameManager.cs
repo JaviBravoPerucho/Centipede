@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -15,6 +16,8 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private GameObject Seta;
     public Propiedades[,] CuadroDeJuego = new Propiedades[20, 20];
+    public Serpiente[] serpiente = new Serpiente[13];
+    public Serpiente[] copia = new Serpiente[13];
 
 
     public struct Propiedades
@@ -23,6 +26,13 @@ public class GameManager : MonoBehaviour
         public float coordenadaX, coordenadaY;
         public bool haySeta, hayCabeza, hayCuerpo, actualizado;
         public GameObject cabeza, cuerpo, seta;
+    }
+    public struct Serpiente
+    {
+        public Direction currentDirection;
+        public int X, Y;
+        public bool isHead;
+        public bool isSnake;
     }
 
     private void MushroomBoolSetting()
@@ -75,13 +85,20 @@ public class GameManager : MonoBehaviour
 
     private void SnakeInit()
     {
-        CuadroDeJuego[0, 13].hayCabeza = true;
-        CuadroDeJuego[0, 13].currentDirection = Direction.Right;
-        for (int i = 2; i < 13; i++)
+        serpiente[0].currentDirection = Direction.Right;
+        serpiente[0].Y = 0;
+        serpiente[0].X = 13;
+        serpiente[0].isHead= true;
+        serpiente[0].isSnake= true;
+        for (int i = 1; i < serpiente.Length; i++)
         {
-            CuadroDeJuego[0, i].hayCuerpo = true;
-            CuadroDeJuego[0, i].currentDirection = Direction.Right;
+            serpiente[i].currentDirection = Direction.Right;
+            serpiente[i].X = i;
+            serpiente[i].Y = 0;
+            serpiente[i].isHead = false;
+            serpiente[i].isSnake = true;
         }
+        
     }
     private void Tests()
     {
@@ -103,7 +120,6 @@ public class GameManager : MonoBehaviour
         MushroomBoolSetting();
         MushroomInstance();
         SnakeInit();
-        ActualizadoFalse();
        // Tests();
     }
 
@@ -112,40 +128,59 @@ public class GameManager : MonoBehaviour
     {
        
     }
+    public void CopiaASerpiente()
+    {
+   
+        for (int i = 0; i < serpiente.Length; i++)
+        {
+            serpiente[i].currentDirection = copia[i].currentDirection;
+            serpiente[i].X = copia[i].X;
+            serpiente[i].Y = copia[i].Y;
+            serpiente[i].isHead= copia[i].isHead;
+            
+             
+        }       
+    }
+    public void SetCabezas()
+    {
+        for (int i = serpiente.Length -2; i > 1; i--)
+        {
+            if (copia[i + 1].isSnake == false)
+            {
+                copia[i].isHead = true;
+            }
+            else copia[i].isHead = false;
+        }
+        if (copia[0].isSnake) { copia[0].isHead = true; }
+    }
     public void ReloadBoard()
     {
        // Debug.Log("Actualizado");
-        ActualizadoFalse();
-        for (int i = 0; i < 20; i++)
+       SetCabezas();
+       CopiaASerpiente();
+        for (int i = 0; i < serpiente.Length; i++)
         {
-            for (int j = 0; j < 20; j++)
+            if (serpiente[i].isSnake)
             {
-                if (CuadroDeJuego[i, j].hayCabeza)
+                if (serpiente[i].isHead && !CuadroDeJuego[serpiente[i].Y, serpiente[i].X].cabeza)
                 {
-                   // Debug.Log("Pintado antes:" + i + "-" + j);
-                  //  if (CuadroDeJuego[i, j].cabeza == null)
-                    {
-                        Vector2 coordenadas = new Vector2(CuadroDeJuego[i, j].coordenadaX, CuadroDeJuego[i, j].coordenadaY);
-                        CuadroDeJuego[i, j].cabeza = Instantiate(Cabeza, coordenadas, Quaternion.identity);
- 
-                    }
+                    Vector2 vector = new Vector2(CuadroDeJuego[serpiente[i].Y, serpiente[i].X].coordenadaX, CuadroDeJuego[serpiente[i].Y, serpiente[i].X].coordenadaY);
+                    CuadroDeJuego[serpiente[i].Y, serpiente[i].X].cabeza = Instantiate(Cabeza, vector, Quaternion.identity);                   
                 }
-                else if(CuadroDeJuego[i, j].cabeza != null && !CuadroDeJuego[i, j].hayCabeza)
+                else if (!serpiente[i].isHead && !CuadroDeJuego[serpiente[i].Y, serpiente[i].X].cuerpo)
                 {
-                    Destroy(CuadroDeJuego[i, j].cabeza);
-                }               
-                if(CuadroDeJuego[i, j].hayCuerpo)
-                {
-
-                    Debug.Log("pintado");
-                    Vector2 coordenadas = new Vector2(CuadroDeJuego[i, j].coordenadaX, CuadroDeJuego[i, j].coordenadaY);
-                    CuadroDeJuego[i, j].cuerpo = Instantiate(Cuerpo, coordenadas, Quaternion.identity);
-                }
-                else if(CuadroDeJuego[i,j].cuerpo != null && !CuadroDeJuego[i, j].hayCuerpo)
-                {
-                    Destroy(CuadroDeJuego[i, j].cuerpo);
+                    Vector2 vector = new Vector2(CuadroDeJuego[serpiente[i].Y, serpiente[i].X].coordenadaX, CuadroDeJuego[serpiente[i].Y, serpiente[i].X].coordenadaY);
+                    CuadroDeJuego[serpiente[i].Y, serpiente[i].X].cuerpo = Instantiate(Cuerpo, vector, Quaternion.identity);
                 }
             }
-        }
+            else
+            {             
+                    CuadroDeJuego[serpiente[i].Y, serpiente[i].X].cabeza.gameObject.SetActive(false);                              
+                    CuadroDeJuego[serpiente[i].Y, serpiente[i].X].cuerpo.gameObject.SetActive(false);            
+            }
+        } 
+        
+           
+                  
     }
 }
