@@ -31,8 +31,7 @@ public class GameManager : MonoBehaviour
     {
         public Direction currentDirection;
         public int X, Y;
-        public bool isHead;
-        public bool isSnake;
+        public bool isHead, isSnake, goesUp;
     }
 
     private void MushroomBoolSetting()

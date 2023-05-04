@@ -5,7 +5,8 @@ using UnityEngine;
 public class LateralMovement : MonoBehaviour
 {
     private float _elapsedTime = 0;
-    
+    private bool goesUp = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -27,14 +28,16 @@ public class LateralMovement : MonoBehaviour
                 {
                     if (GameManager.Instance.CuadroDeJuego[GameManager.Instance.serpiente[i].Y, GameManager.Instance.serpiente[i].X + 1].haySeta)
                     {
-                        GameManager.Instance.copia[i].currentDirection = GameManager.Direction.Down;
+                        if(!goesUp)GameManager.Instance.copia[i].currentDirection = GameManager.Direction.Down;
+                        else GameManager.Instance.copia[i].currentDirection = GameManager.Direction.Up;
                         GameManager.Instance.copia[i].X = GameManager.Instance.serpiente[i].X;
                         GameManager.Instance.copia[i].Y = GameManager.Instance.serpiente[i].Y + 1;
                         
                     }
                     else if(GameManager.Instance.serpiente[i].X + 1 == 19 && !GameManager.Instance.CuadroDeJuego[GameManager.Instance.serpiente[i].Y, GameManager.Instance.serpiente[i].X + 1].haySeta)
                     {
-                        GameManager.Instance.copia[i].currentDirection = GameManager.Direction.Down;
+                        if (!goesUp) GameManager.Instance.copia[i].currentDirection = GameManager.Direction.Down;
+                        else GameManager.Instance.copia[i].currentDirection = GameManager.Direction.Up;
                         GameManager.Instance.copia[i].X = GameManager.Instance.serpiente[i].X;
                         GameManager.Instance.copia[i].Y = GameManager.Instance.serpiente[i].Y + 1;
                         
@@ -50,15 +53,17 @@ public class LateralMovement : MonoBehaviour
                 else if (GameManager.Instance.serpiente[i].currentDirection == GameManager.Direction.Left)
                 {
                    
-                    if (GameManager.Instance.serpiente[i].X - 1 == 1 /*&& !GameManager.Instance.CuadroDeJuego[GameManager.Instance.serpiente[i].Y, GameManager.Instance.serpiente[i].X - 1].haySeta*/)
+                    if (GameManager.Instance.serpiente[i].X - 1 <= 1 /*&& !GameManager.Instance.CuadroDeJuego[GameManager.Instance.serpiente[i].Y, GameManager.Instance.serpiente[i].X - 1].haySeta*/)
                     {
-                        GameManager.Instance.copia[i].currentDirection = GameManager.Direction.Down;
+                        if (!goesUp) GameManager.Instance.copia[i].currentDirection = GameManager.Direction.Down;
+                        else GameManager.Instance.copia[i].currentDirection = GameManager.Direction.Up;
                         GameManager.Instance.copia[i].X = GameManager.Instance.serpiente[i].X;
                         GameManager.Instance.copia[i].Y = GameManager.Instance.serpiente[i].Y + 1;
                     }
                     else if (GameManager.Instance.serpiente[i].X - 1 >= 1 && GameManager.Instance.CuadroDeJuego[GameManager.Instance.serpiente[i].Y, GameManager.Instance.serpiente[i].X - 1].haySeta)
                     {
-                        GameManager.Instance.copia[i].currentDirection = GameManager.Direction.Down;
+                        if (!goesUp) GameManager.Instance.copia[i].currentDirection = GameManager.Direction.Down;
+                        else GameManager.Instance.copia[i].currentDirection = GameManager.Direction.Up;
                         GameManager.Instance.copia[i].X = GameManager.Instance.serpiente[i].X;
                         GameManager.Instance.copia[i].Y = GameManager.Instance.serpiente[i].Y + 1;
                     }
@@ -148,8 +153,15 @@ public class LateralMovement : MonoBehaviour
                         GameManager.Instance.copia[i].Y = GameManager.Instance.serpiente[i].Y;
                     }
                 }
+                if (GameManager.Instance.copia[i].isHead)
+                {
+                    if (GameManager.Instance.copia[i].Y > 15) GameManager.Instance.copia[i].goesUp = true;
+                    else if (GameManager.Instance.copia[i].Y < 5) GameManager.Instance.copia[i].goesUp = false;
+                } 
             }
             GameManager.Instance.ReloadBoard();                                                                                                                      
         }
+
+        
     }
 }
