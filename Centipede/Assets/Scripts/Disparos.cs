@@ -21,7 +21,7 @@ public class Disparos : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey("space"))
+        if (Input.GetKey(KeyCode.Space))
         {
             if (!disparado_)
             {
