@@ -13,7 +13,7 @@ public class MovimientoBalas : MonoBehaviour
     void Start()
     {
         _rigidBody2D = GetComponent<Rigidbody2D>();
-        _rigidBody2D.AddForce(transform.up * velocidad);
+        _rigidBody2D.AddForce(Vector2.up * velocidad);
     }
 
     // Update is called once per frame
