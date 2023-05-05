@@ -28,6 +28,7 @@ public class MovimientoBalas : MonoBehaviour
         {
             Destroy(collision.gameObject);
             Instantiate(seta, collision.transform.position, Quaternion.identity);
+            GameManager.Instance.EliminatePartPlantMushroom((int)collision.transform.position.x, (int)collision.transform.position.y);
         }
 
         Destroy(gameObject);

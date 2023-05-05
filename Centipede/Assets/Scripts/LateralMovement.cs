@@ -5,7 +5,7 @@ using UnityEngine;
 public class LateralMovement : MonoBehaviour
 {
     private float _elapsedTime = 0;
-    private bool goesUp = false;
+    public bool goesUp = false;
 
     // Start is called before the first frame update
     void Start()
@@ -76,13 +76,17 @@ public class LateralMovement : MonoBehaviour
                 }
                 else if (GameManager.Instance.serpiente[i].currentDirection == GameManager.Direction.Down)
                 {
-                    if( GameManager.Instance.serpiente[i].X >= 18)
+                    if(GameManager.Instance.serpiente[i].Y == 19)
+                    {
+                        GameManager.Instance.copia[i].goesUp = true;
+                    }
+                    else if( GameManager.Instance.serpiente[i].X >= 18)
                     {
                         GameManager.Instance.copia[i].currentDirection = GameManager.Direction.Left;
                         GameManager.Instance.copia[i].X = GameManager.Instance.serpiente[i].X - 1;
                         GameManager.Instance.copia[i].Y = GameManager.Instance.serpiente[i].Y;
                     }
-                    else if (GameManager.Instance.serpiente[i].X == 0)
+                    else if (GameManager.Instance.serpiente[i].X <= 0)
                     {
                         GameManager.Instance.copia[i].currentDirection = GameManager.Direction.Right;
                         GameManager.Instance.copia[i].X = GameManager.Instance.serpiente[i].X + 1;
@@ -122,7 +126,11 @@ public class LateralMovement : MonoBehaviour
                 }
                 else if (GameManager.Instance.serpiente[i].currentDirection == GameManager.Direction.Up)
                 {
-                    if (GameManager.Instance.CuadroDeJuego[GameManager.Instance.serpiente[i].Y, GameManager.Instance.serpiente[i].X + 1].haySeta)
+                    if (GameManager.Instance.serpiente[i].Y == 0)
+                    {
+                        GameManager.Instance.copia[i].goesUp = false;
+                    }
+                    else if (GameManager.Instance.CuadroDeJuego[GameManager.Instance.serpiente[i].Y, GameManager.Instance.serpiente[i].X + 1].haySeta)
                     {
                         GameManager.Instance.copia[i].currentDirection = GameManager.Direction.Left;
                         GameManager.Instance.copia[i].X = GameManager.Instance.serpiente[i].X - 1;

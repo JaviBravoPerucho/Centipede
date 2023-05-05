@@ -92,8 +92,21 @@ public class GameManager : MonoBehaviour
             serpiente[i].Y = 0;
             serpiente[i].isHead = false;
             serpiente[i].isSnake = true;
+            serpiente[i].goesUp = false;
         }
         
+    }
+    public void EliminatePartPlantMushroom(int x, int y)
+    {
+        for (int i = 0; i < serpiente.Length; i++)
+        {
+            if(x == serpiente[i].X && y == 19 - serpiente[i].Y )
+            {
+                copia[i].isSnake = false;
+                serpiente[i].isSnake = false;
+                CuadroDeJuego[19 - y, x].haySeta = true;
+            }
+        }
     }
     private void Tests()
     {
@@ -133,6 +146,7 @@ public class GameManager : MonoBehaviour
             serpiente[i].X = copia[i].X;
             serpiente[i].Y = copia[i].Y;
             serpiente[i].isHead = copia[i].isHead;
+            serpiente[i].goesUp = copia[i].goesUp;
         }       
     }
     private void InitCopia()
@@ -156,15 +170,18 @@ public class GameManager : MonoBehaviour
     }
     private void EliminaSerpiente()
     {
-        for (int i = 0; i < serpiente.Length - 1; i++)
+        for (int i = 0; i < 20; i++)
         {
-            if(serpiente[i].isHead && CuadroDeJuego[serpiente[i].Y, serpiente[i].X].cabeza)
+            for (int j= 0;j  < 20;j++)
             {
-               Destroy(CuadroDeJuego[serpiente[i].Y, serpiente[i].X].cabeza);
-            }
-            else if(!serpiente[i].isHead && CuadroDeJuego[serpiente[i].Y, serpiente[i].X].cuerpo)
-            {
-               Destroy(CuadroDeJuego[serpiente[i].Y, serpiente[i].X].cuerpo);
+                if(CuadroDeJuego[j,i].cabeza)
+                {
+                    Destroy(CuadroDeJuego[j, i].cabeza);
+                }
+                if (CuadroDeJuego[j, i].cuerpo)
+                {
+                    Destroy(CuadroDeJuego[j, i].cuerpo);
+                }
             }
         }
     }
@@ -197,7 +214,7 @@ public class GameManager : MonoBehaviour
                 }
             }
 
-        } 
+        }
         
            
                   
