@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7968518896089562557}
   - component: {fileID: 1906441011553782433}
   - component: {fileID: 1832615158454683649}
+  - component: {fileID: 539730205059070727}
   m_Layer: 0
   m_Name: Cuerpo
   m_TagString: Cuerpo
@@ -101,3 +102,16 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &539730205059070727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1779245419167989527}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f27200bcf01b87040866d206ef84b91f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _destroyTime: 0.12

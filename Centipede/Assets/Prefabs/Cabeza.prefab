@@ -179,6 +179,7 @@ GameObject:
   - component: {fileID: 5310740950451864217}
   - component: {fileID: 6546855123274770281}
   - component: {fileID: 5980370551558668897}
+  - component: {fileID: -4953298570024813761}
   m_Layer: 0
   m_Name: Cabeza
   m_TagString: Cabeza
@@ -271,3 +272,16 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &-4953298570024813761
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2884240986512943334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f27200bcf01b87040866d206ef84b91f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _destroyTime: 0.12
