@@ -201,7 +201,22 @@ public class GameManager : MonoBehaviour
                         Destroy(CuadroDeJuego[serpiente[i].Y, serpiente[i].X].cuerpo);
                     }
                     Vector2 vector = new Vector2(CuadroDeJuego[serpiente[i].Y, serpiente[i].X].coordenadaX, CuadroDeJuego[serpiente[i].Y, serpiente[i].X].coordenadaY);
-                    CuadroDeJuego[serpiente[i].Y, serpiente[i].X].cabeza = Instantiate(Cabeza, vector, Quaternion.identity);                   
+                    CuadroDeJuego[serpiente[i].Y, serpiente[i].X].cabeza = Instantiate(Cabeza, vector, Quaternion.identity);   
+                    switch(serpiente[i].currentDirection)
+                    {
+                        case Direction.Left:
+                            CuadroDeJuego[serpiente[i].Y, serpiente[i].X].cabeza.transform.Rotate(0, 0, 180);
+                            break;
+                        case Direction.Right:
+                            CuadroDeJuego[serpiente[i].Y, serpiente[i].X].cabeza.transform.Rotate(0, 0, 0);
+                            break;
+                        case Direction.Up:
+                            CuadroDeJuego[serpiente[i].Y, serpiente[i].X].cabeza.transform.Rotate(0, 0, 90);
+                            break;
+                        case Direction.Down:
+                            CuadroDeJuego[serpiente[i].Y, serpiente[i].X].cabeza.transform.Rotate(0, 0, 270);
+                            break;
+                    }
                 }
                 else if (!serpiente[i].isHead/* && !CuadroDeJuego[serpiente[i].Y, serpiente[i].X].cuerpo*/)
                 {
@@ -211,6 +226,7 @@ public class GameManager : MonoBehaviour
                     }
                     Vector2 vector = new Vector2(CuadroDeJuego[serpiente[i].Y, serpiente[i].X].coordenadaX, CuadroDeJuego[serpiente[i].Y, serpiente[i].X].coordenadaY);
                     CuadroDeJuego[serpiente[i].Y, serpiente[i].X].cuerpo = Instantiate(Cuerpo, vector, Quaternion.identity);
+ 
                 }
             }
 
