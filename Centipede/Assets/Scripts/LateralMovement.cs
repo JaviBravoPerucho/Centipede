@@ -179,7 +179,7 @@ public class LateralMovement : MonoBehaviour
                     else
                     {
                         GameManager.Instance.copia[i].currentDirection = GameManager.Direction.Right;
-                        GameManager.Instance.copia[i].X = GameManager.Instance.serpiente[i].X - 1;
+                        GameManager.Instance.copia[i].X = GameManager.Instance.serpiente[i].X + 1;
                         GameManager.Instance.copia[i].Y = GameManager.Instance.serpiente[i].Y;
                     }
 
@@ -193,6 +193,18 @@ public class LateralMovement : MonoBehaviour
                         GameManager.Instance.copia[i].X = GameManager.Instance.serpiente[i].X;
                         GameManager.Instance.copia[i].Y = GameManager.Instance.serpiente[i].Y + 1;
 
+                    }
+                    else if (GameManager.Instance.serpiente[i].X >= 18)
+                    {
+                        GameManager.Instance.copia[i].currentDirection = GameManager.Direction.Left;
+                        GameManager.Instance.copia[i].X = GameManager.Instance.serpiente[i].X - 1;
+                        GameManager.Instance.copia[i].Y = GameManager.Instance.serpiente[i].Y;
+                    }
+                    else if (GameManager.Instance.serpiente[i].X <= 0)
+                    {
+                        GameManager.Instance.copia[i].currentDirection = GameManager.Direction.Right;
+                        GameManager.Instance.copia[i].X = GameManager.Instance.serpiente[i].X + 1;
+                        GameManager.Instance.copia[i].Y = GameManager.Instance.serpiente[i].Y;
                     }
                     else if (GameManager.Instance.CuadroDeJuego[GameManager.Instance.serpiente[i].Y, GameManager.Instance.serpiente[i].X + 1].haySeta)
                     {
