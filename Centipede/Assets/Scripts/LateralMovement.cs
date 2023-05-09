@@ -69,7 +69,7 @@ public class LateralMovement : MonoBehaviour
                 else if (GameManager.Instance.serpiente[i].currentDirection == GameManager.Direction.Left)
                 {
                    
-                    if (GameManager.Instance.serpiente[i].X - 1 <= 1 /*&& !GameManager.Instance.CuadroDeJuego[GameManager.Instance.serpiente[i].Y, GameManager.Instance.serpiente[i].X - 1].haySeta*/)
+                    if (GameManager.Instance.serpiente[i].X - 1 < 0 /*&& !GameManager.Instance.CuadroDeJuego[GameManager.Instance.serpiente[i].Y, GameManager.Instance.serpiente[i].X - 1].haySeta*/)
                     {
                         if (!GameManager.Instance.serpiente[i].goesUp)
                         {

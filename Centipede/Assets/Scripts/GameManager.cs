@@ -9,16 +9,20 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get { return _instance; } }
 
     public enum Direction { Left, Right, Up, Down }
+    public enum ColorJuego { Normal, Rojo, Cyan, Amarillo }
+
     [SerializeField]
     private GameObject Cabeza;
     [SerializeField]
     private GameObject Cuerpo;
     [SerializeField]
     private GameObject Seta;
+    [SerializeField]
+    private GameObject Player;
     public Propiedades[,] CuadroDeJuego = new Propiedades[20, 20];
     public Serpiente[] serpiente = new Serpiente[13];
     public Serpiente[] copia = new Serpiente[13];
-
+    private ColorJuego currentColor;
 
     public struct Propiedades
     {
@@ -40,8 +44,8 @@ public class GameManager : MonoBehaviour
         {
             for (int j = 0; j < 20; j++)
             {
-                if (Random.Range(0, 10) == 0 && i > 10) CuadroDeJuego[i, j].haySeta = true;
-                else if (Random.Range(0, 20) == 0 && i < 19) CuadroDeJuego[i, j].haySeta = true;
+                if (Random.Range(0, 10) == 0 && i < 10) CuadroDeJuego[i, j].haySeta = true;
+                else if (Random.Range(0, 25) == 0 && i > 10) CuadroDeJuego[i, j].haySeta = true;
             }
         }
     }
@@ -66,7 +70,7 @@ public class GameManager : MonoBehaviour
                 if (CuadroDeJuego[i, j].haySeta)
                 {
                     Vector2 coordenadas = new Vector2(CuadroDeJuego[i, j].coordenadaX, CuadroDeJuego[i, j].coordenadaY);
-                    Instantiate(Seta, coordenadas, Quaternion.identity);
+                    CuadroDeJuego[i, j].seta = Instantiate(Seta, coordenadas, Quaternion.identity);
                 }
             }
         }
@@ -108,13 +112,13 @@ public class GameManager : MonoBehaviour
             }
         }
     }
-    private void Tests()
+    /*private void Tests()
     {
         Vector2 vector2 = new Vector2(CuadroDeJuego[0, 0].coordenadaX, CuadroDeJuego[0, 0].coordenadaY);
         Instantiate(Cabeza, vector2, Quaternion.identity);
         vector2 = new Vector2(CuadroDeJuego[0, 5].coordenadaX, CuadroDeJuego[0, 5].coordenadaY);
         Instantiate(Cabeza, vector2, Quaternion.identity);
-    }
+    }*/
 
     void Awake()
     {
@@ -129,14 +133,42 @@ public class GameManager : MonoBehaviour
         MushroomInstance();
         SnakeInit();
         InitCopia();
-       // Tests();
+        // Tests();
+        currentColor = ColorJuego.Cyan;
     }
 
     // Update is called once per frame
     void Update()
     {
-       
+        for (int i = 0; i < 20; i++)
+        {
+            for (int j = 0; j < 20; j++)
+            {
+                switch (currentColor)
+                {
+                    case ColorJuego.Cyan:
+                        if(CuadroDeJuego[i, j].cabeza != null) CuadroDeJuego[i, j].cabeza.GetComponent<SpriteRenderer>().color = Color.cyan;
+                        if (CuadroDeJuego[i, j].seta != null) CuadroDeJuego[i, j].seta.GetComponent<SpriteRenderer>().color = Color.cyan;
+                        if (CuadroDeJuego[i, j].cuerpo != null) CuadroDeJuego[i, j].cuerpo.GetComponent<SpriteRenderer>().color = Color.cyan;
+                        if (Player != null) Player.GetComponent<SpriteRenderer>().color = Color.cyan;
+                        break;
+                    case ColorJuego.Rojo:
+                        if (CuadroDeJuego[i, j].hayCabeza && CuadroDeJuego[i, j].cabeza != null) CuadroDeJuego[i, j].cabeza.GetComponent<SpriteRenderer>().color = Color.red;
+                        if (CuadroDeJuego[i, j].haySeta && CuadroDeJuego[i, j].seta != null) CuadroDeJuego[i, j].seta.GetComponent<SpriteRenderer>().color = Color.red;
+                        if (CuadroDeJuego[i, j].hayCuerpo && CuadroDeJuego[i, j].cuerpo != null) CuadroDeJuego[i, j].cuerpo.GetComponent<SpriteRenderer>().color = Color.red;
+                        if (Player != null) Player.GetComponent<SpriteRenderer>().color = Color.cyan;
+                        break;
+                    case ColorJuego.Amarillo:
+                        if (CuadroDeJuego[i, j].hayCabeza && CuadroDeJuego[i, j].cabeza != null) CuadroDeJuego[i, j].cabeza.GetComponent<SpriteRenderer>().color = Color.yellow;
+                        if (CuadroDeJuego[i, j].haySeta && CuadroDeJuego[i, j].seta != null) CuadroDeJuego[i, j].seta.GetComponent<SpriteRenderer>().color = Color.yellow;
+                        if (CuadroDeJuego[i, j].hayCuerpo && CuadroDeJuego[i, j].cuerpo != null) CuadroDeJuego[i, j].cuerpo.GetComponent<SpriteRenderer>().color = Color.yellow;
+                        if (Player != null) Player.GetComponent<SpriteRenderer>().color = Color.cyan;
+                        break;
+                }
+            }
+        }       
     }
+
     public void CopiaASerpiente()
     {
    
