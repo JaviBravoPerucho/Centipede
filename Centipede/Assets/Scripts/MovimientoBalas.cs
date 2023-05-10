@@ -24,11 +24,19 @@ public class MovimientoBalas : MonoBehaviour
         {
             collision.gameObject.GetComponent<LifeComponent>().vida--;
         }
-        if (collision.gameObject.tag=="Cuerpo"|| collision.gameObject.tag == "Cabeza")
+        if (collision.gameObject.tag== "Cuerpo")
         {
             Destroy(collision.gameObject);
             Instantiate(seta, collision.transform.position, Quaternion.identity);
             GameManager.Instance.EliminatePartPlantMushroom((int)collision.transform.position.x, (int)collision.transform.position.y);
+            UIManager.Instance.Points(10);
+        }
+        else if(collision.gameObject.tag == "Cabeza")
+        {
+            Destroy(collision.gameObject);
+            Instantiate(seta, collision.transform.position, Quaternion.identity);
+            GameManager.Instance.EliminatePartPlantMushroom((int)collision.transform.position.x, (int)collision.transform.position.y);
+            UIManager.Instance.Points(100);
         }
 
         Destroy(gameObject);

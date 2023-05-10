@@ -134,7 +134,7 @@ public class GameManager : MonoBehaviour
         SnakeInit();
         InitCopia();
         // Tests();
-        currentColor = ColorJuego.Cyan;
+        currentColor = ColorJuego.Normal;
     }
 
     // Update is called once per frame
@@ -145,7 +145,13 @@ public class GameManager : MonoBehaviour
             for (int j = 0; j < 20; j++)
             {
                 switch (currentColor)
-                {
+                { 
+                    case ColorJuego.Normal:
+                        if (CuadroDeJuego[i, j].hayCabeza && CuadroDeJuego[i, j].cabeza != null) CuadroDeJuego[i, j].cabeza.GetComponent<SpriteRenderer>().color = Color.green;
+                       // if (CuadroDeJuego[i, j].haySeta && CuadroDeJuego[i, j].seta != null) CuadroDeJuego[i, j].seta.GetComponent<SpriteRenderer>().color = Color.green;
+                        if (CuadroDeJuego[i, j].hayCuerpo && CuadroDeJuego[i, j].cuerpo != null) CuadroDeJuego[i, j].cuerpo.GetComponent<SpriteRenderer>().color = Color.green;
+                        if (Player != null) Player.GetComponent<SpriteRenderer>().color = Color.cyan;
+                        break;
                     case ColorJuego.Cyan:
                         if(CuadroDeJuego[i, j].cabeza != null) CuadroDeJuego[i, j].cabeza.GetComponent<SpriteRenderer>().color = Color.cyan;
                         if (CuadroDeJuego[i, j].seta != null) CuadroDeJuego[i, j].seta.GetComponent<SpriteRenderer>().color = Color.cyan;
@@ -258,7 +264,22 @@ public class GameManager : MonoBehaviour
                     }
                     Vector2 vector = new Vector2(CuadroDeJuego[serpiente[i].Y, serpiente[i].X].coordenadaX, CuadroDeJuego[serpiente[i].Y, serpiente[i].X].coordenadaY);
                     CuadroDeJuego[serpiente[i].Y, serpiente[i].X].cuerpo = Instantiate(Cuerpo, vector, Quaternion.identity);
- 
+                    switch (serpiente[i].currentDirection)
+                    {
+                        case Direction.Left:
+                            CuadroDeJuego[serpiente[i].Y, serpiente[i].X].cuerpo.transform.Rotate(0, 0, 180);
+                            break;
+                        case Direction.Right:
+                            CuadroDeJuego[serpiente[i].Y, serpiente[i].X].cuerpo.transform.Rotate(0, 0, 0);
+                            break;
+                        case Direction.Up:
+                            CuadroDeJuego[serpiente[i].Y, serpiente[i].X].cuerpo.transform.Rotate(0, 0, 90);
+                            break;
+                        case Direction.Down:
+                            CuadroDeJuego[serpiente[i].Y, serpiente[i].X].cuerpo.transform.Rotate(0, 0, 270);
+                            break;
+                    }
+
                 }
             }
 

@@ -8,11 +8,13 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private TMP_Text points;
     private int _points = 0;
+    static private UIManager uIManager;
+    static public UIManager Instance { get { return uIManager; } }
     
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        
+        uIManager = this;
     }
 
     // Update is called once per frame

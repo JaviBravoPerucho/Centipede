@@ -18,7 +18,7 @@ public class LateralMovement : MonoBehaviour
     {
         _elapsedTime += Time.deltaTime;
 
-        if (_elapsedTime > 0.1f)
+        if (_elapsedTime > 0.2f)
         {
             _elapsedTime = 0;
             for (int i = 0; i < GameManager.Instance.serpiente.Length; i++)
