@@ -10,7 +10,10 @@ public class GameManager : MonoBehaviour
 
     public enum Direction { Left, Right, Up, Down }
     public enum ColorJuego { Normal, Rojo, Cyan, Amarillo }
-
+    [SerializeField]
+    private Transform _spawnPoint;
+    [SerializeField]
+    private GameObject explosion;
     [SerializeField]
     private GameObject Cabeza;
     [SerializeField]
@@ -23,6 +26,11 @@ public class GameManager : MonoBehaviour
     public Serpiente[] serpiente = new Serpiente[13];
     public Serpiente[] copia = new Serpiente[13];
     private ColorJuego currentColor;
+    public int playerLifes;
+    [SerializeField]
+    private float _respawnTime;
+    private float _elapsedTime = 0;
+    private bool _dead = false;
 
     public struct Propiedades
     {
@@ -36,6 +44,28 @@ public class GameManager : MonoBehaviour
         public Direction currentDirection;
         public int X, Y;
         public bool isHead, isSnake, goesUp;
+    }
+    public void LoseLife()
+    {
+        if (playerLifes > 1)
+        {
+            playerLifes--;
+            Player.SetActive(false);
+            _dead = true;
+            UIManager.Instance.UpdateHud(playerLifes);
+        }
+        else if(playerLifes == 1)
+        {
+            playerLifes--;
+            Player.SetActive(false);
+            _dead = true;
+            UIManager.Instance.gameOver.SetActive(true);
+            UIManager.Instance.ResetPoints();
+            UIManager.Instance.RegenerateLifes();
+            currentColor = (ColorJuego)Random.Range(0, 4);
+        }
+        Instantiate(explosion, Player.transform.position, Quaternion.identity);
+        
     }
 
     private void MushroomBoolSetting()
@@ -135,11 +165,25 @@ public class GameManager : MonoBehaviour
         InitCopia();
         // Tests();
         currentColor = ColorJuego.Normal;
+        Player = Instantiate(Player, _spawnPoint.position, Quaternion.identity);
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(_dead)
+        {
+            _elapsedTime += Time.deltaTime;
+            if(_elapsedTime > _respawnTime)
+            {
+                Player.SetActive(true);
+                Player.transform.position = _spawnPoint.position;
+                _dead = false;
+                _elapsedTime = 0;
+                UIManager.Instance.gameOver.SetActive(false);
+               
+            }
+        }
         for (int i = 0; i < 20; i++)
         {
             for (int j = 0; j < 20; j++)

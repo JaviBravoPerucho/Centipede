@@ -7,6 +7,10 @@ public class UIManager : MonoBehaviour
 {
     [SerializeField]
     private TMP_Text points;
+    [SerializeField]
+    private GameObject[] _lifes;
+    [SerializeField]
+    public GameObject gameOver;
     private int _points = 0;
     static private UIManager uIManager;
     static public UIManager Instance { get { return uIManager; } }
@@ -29,5 +33,17 @@ public class UIManager : MonoBehaviour
     public void ResetPoints()
     {
         _points = 0;
+    }
+    public void UpdateHud(int lifes)
+    {
+        _lifes[lifes].SetActive(false);
+    }
+    public void RegenerateLifes()
+    {
+        for (int i = 0; i < _lifes.Length; i++)
+        {
+            _lifes[i].SetActive(true);
+        }
+        GameManager.Instance.playerLifes = 3;
     }
 }
