@@ -79,6 +79,20 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+    private void MushroomDelete()
+    {
+        for (int i = 0; i < 20; i++)
+        {
+            for (int j = 0; j < 20; j++)
+            {
+                if (CuadroDeJuego[i, j].haySeta)
+                {
+                    CuadroDeJuego[i, j].haySeta = false;
+                    CuadroDeJuego[i, j].seta.SetActive(false);
+                }
+            }
+        }
+    }
 
     private void CoordinateSetting()
     {
@@ -181,7 +195,9 @@ public class GameManager : MonoBehaviour
                 _dead = false;
                 _elapsedTime = 0;
                 UIManager.Instance.gameOver.SetActive(false);
-               
+                MushroomDelete();
+                MushroomBoolSetting(); 
+                MushroomInstance();
             }
         }
         for (int i = 0; i < 20; i++)
