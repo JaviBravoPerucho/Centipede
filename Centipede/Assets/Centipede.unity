@@ -823,6 +823,7 @@ MonoBehaviour:
   Seta: {fileID: 8144117921908104197, guid: ec3b187f25591044e933b8acc617dde8, type: 3}
   Player: {fileID: 8839389684130241123, guid: 32131da9edad46d4b8b84fac892f5e56, type: 3}
   playerLifes: 3
+  snakeLifes: 13
   _respawnTime: 2
 --- !u!4 &1280957692
 Transform:
@@ -1024,9 +1025,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 58e84e71496c8544383650c769eac41b, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.3
   m_Pitch: 1
   Loop: 0
   Mute: 0
