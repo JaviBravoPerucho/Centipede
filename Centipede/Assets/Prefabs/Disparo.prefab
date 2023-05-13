@@ -178,5 +178,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb826b6e545f4e84e95f9429dec51adb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  velocidad: 20
+  velocidad: 40
   seta: {fileID: 8144117921908104197, guid: ec3b187f25591044e933b8acc617dde8, type: 3}

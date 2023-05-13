@@ -86,11 +86,11 @@ public class GameManager : MonoBehaviour
         {
             for (int j = 0; j < 20; j++)
             {
-                if (CuadroDeJuego[i, j].haySeta && CuadroDeJuego[i, j].seta.GetComponent<LifeComponent>().vida < 4)
+                if (CuadroDeJuego[i, j].haySeta && CuadroDeJuego[i,j].seta && CuadroDeJuego[i, j].seta.GetComponent<LifeComponent>().vida < 4)
                 {
                     CuadroDeJuego[i, j].seta.GetComponent<LifeComponent>().vida = 4;
                 }
-                else if(!CuadroDeJuego[i, j].haySeta && i > 5 && Random.Range(0,50) == 0)CuadroDeJuego[i, j].haySeta = true;
+                else if(!CuadroDeJuego[i, j].haySeta && CuadroDeJuego[i, j].seta && i > 5 && Random.Range(0,50) == 0)CuadroDeJuego[i, j].haySeta = true;
             }
         }
     }
@@ -200,6 +200,7 @@ public class GameManager : MonoBehaviour
                 _dead = false;
                 _elapsedTime = 0;
                 UIManager.Instance.gameOver.SetActive(false);
+                SnakeInit();
             }
             
         }
@@ -236,12 +237,7 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
-        if (snakeLifes == 0)
-        {
-            currentColor = (ColorJuego)Random.Range(0, 4);
-            SnakeInit();
-            snakeLifes = serpiente.Length;
-        }
+      
     }
 
     public void CopiaASerpiente()
@@ -275,6 +271,23 @@ public class GameManager : MonoBehaviour
         }
         if (copia[serpiente.Length - 1].isSnake) { copia[copia.Length - 1].isHead = true; }
     }
+    public void SetCabezasSnake()
+    {
+        for (int i = serpiente.Length - 2; i > 0; i--)
+        {
+            if (serpiente[i + 1].isSnake == false)
+            {
+                serpiente[i].isHead = true;
+                copia[i].isHead = true;
+            }
+            else
+            {
+                copia[i].isHead = false;
+                serpiente[i].isHead = false;
+            }
+        }
+        if (serpiente[serpiente.Length - 1].isSnake) { serpiente[copia.Length - 1].isHead = true; copia[copia.Length - 1].isHead = true; }
+    }
     private void EliminaSerpiente()
     {
         for (int i = 0; i < 20; i++)
@@ -297,6 +310,21 @@ public class GameManager : MonoBehaviour
         EliminaSerpiente();
         SetCabezas();   
         CopiaASerpiente();
+        bool muerta = true;
+        for (int i = 0; i < serpiente.Length; i++)
+        {
+            if(serpiente[i].isSnake)
+            {
+                muerta = false;
+            }
+        }
+        if (muerta)
+        {
+            currentColor = (ColorJuego)Random.Range(0, 4);
+            SnakeInit();
+           // SetCabezasSnake();
+        }
+      
         for (int i = 0; i < serpiente.Length; i++)
         {
             if (serpiente[i].isSnake)

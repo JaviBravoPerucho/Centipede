@@ -31,14 +31,15 @@ public class MovimientoBalas : MonoBehaviour
             Instantiate(seta, collision.transform.position, Quaternion.identity);
             GameManager.Instance.EliminatePartPlantMushroom((int)collision.transform.position.x, (int)collision.transform.position.y);
             UIManager.Instance.Points(10);
+          //  GameManager.Instance.CuadroDeJuego[(int)collision.transform.position.x, (int)collision.transform.position.y].seta = Instantiate(seta, collision.transform.position, Quaternion.identity);
         }
         else if(collision.gameObject.tag == "Cabeza")
         {
             Destroy(collision.gameObject);
-            GameManager.Instance.snakeLifes--;
-            Instantiate(seta, collision.transform.position, Quaternion.identity);
+            GameManager.Instance.snakeLifes--;          
             GameManager.Instance.EliminatePartPlantMushroom((int)collision.transform.position.x, (int)collision.transform.position.y);
             UIManager.Instance.Points(100);
+           // GameManager.Instance.CuadroDeJuego[(int)collision.transform.position.x, (int)collision.transform.position.y].seta = Instantiate(seta, collision.transform.position, Quaternion.identity);
         }
 
         Destroy(gameObject);
