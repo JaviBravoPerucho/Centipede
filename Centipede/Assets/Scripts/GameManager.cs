@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour
     public Serpiente[] copia = new Serpiente[13];
     private ColorJuego currentColor;
     public int playerLifes;
+    public int snakeLifes = 13;
     [SerializeField]
     private float _respawnTime;
     private float _elapsedTime = 0;
@@ -232,7 +233,8 @@ public class GameManager : MonoBehaviour
                         break;
                 }
             }
-        }       
+        }
+        if (snakeLifes == 0) SnakeInit();
     }
 
     public void CopiaASerpiente()

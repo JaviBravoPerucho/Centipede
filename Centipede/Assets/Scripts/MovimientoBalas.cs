@@ -27,6 +27,7 @@ public class MovimientoBalas : MonoBehaviour
         if (collision.gameObject.tag== "Cuerpo")
         {
             Destroy(collision.gameObject);
+            GameManager.Instance.snakeLifes--;
             Instantiate(seta, collision.transform.position, Quaternion.identity);
             GameManager.Instance.EliminatePartPlantMushroom((int)collision.transform.position.x, (int)collision.transform.position.y);
             UIManager.Instance.Points(10);
@@ -34,6 +35,7 @@ public class MovimientoBalas : MonoBehaviour
         else if(collision.gameObject.tag == "Cabeza")
         {
             Destroy(collision.gameObject);
+            GameManager.Instance.snakeLifes--;
             Instantiate(seta, collision.transform.position, Quaternion.identity);
             GameManager.Instance.EliminatePartPlantMushroom((int)collision.transform.position.x, (int)collision.transform.position.y);
             UIManager.Instance.Points(100);
