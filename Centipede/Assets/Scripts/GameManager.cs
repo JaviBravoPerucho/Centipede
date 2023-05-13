@@ -63,34 +63,34 @@ public class GameManager : MonoBehaviour
             UIManager.Instance.gameOver.SetActive(true);
             UIManager.Instance.ResetPoints();
             UIManager.Instance.RegenerateLifes();
-            currentColor = (ColorJuego)Random.Range(0, 4);
+            //currentColor = (ColorJuego)Random.Range(0, 4);
         }
         Instantiate(explosion, Player.transform.position, Quaternion.identity);
         
     }
 
-    private void MushroomBoolSetting()
+    private void MushroomBoolSetting(int probY, int probX)
     {
-        for(int i = 0; i < 20; i++)
+        for(int i = 2; i < 20; i++)
         {
             for (int j = 0; j < 20; j++)
             {
-                if (Random.Range(0, 10) == 0 && i < 10) CuadroDeJuego[i, j].haySeta = true;
-                else if (Random.Range(0, 25) == 0 && i > 10) CuadroDeJuego[i, j].haySeta = true;
+                if (Random.Range(0, probY) == 0 && i < 10) CuadroDeJuego[i, j].haySeta = true;
+                else if (Random.Range(0, probX) == 0 && i > 10) CuadroDeJuego[i, j].haySeta = true;
             }
         }
     }
-    private void MushroomDelete()
+    private void MushroomRearange()
     {
         for (int i = 0; i < 20; i++)
         {
             for (int j = 0; j < 20; j++)
             {
-                if (CuadroDeJuego[i, j].haySeta)
+                if (CuadroDeJuego[i, j].haySeta && CuadroDeJuego[i, j].seta.GetComponent<LifeComponent>().vida < 4)
                 {
-                    CuadroDeJuego[i, j].haySeta = false;
-                    CuadroDeJuego[i, j].seta.SetActive(false);
+                    CuadroDeJuego[i, j].seta.GetComponent<LifeComponent>().vida = 4;
                 }
+                else if(!CuadroDeJuego[i, j].haySeta && i > 5 && Random.Range(0,50) == 0)CuadroDeJuego[i, j].haySeta = true;
             }
         }
     }
@@ -154,6 +154,8 @@ public class GameManager : MonoBehaviour
                 copia[i].isSnake = false;
                 serpiente[i].isSnake = false;
                 CuadroDeJuego[19 - y, x].haySeta = true;
+                Vector2 coordenadas = new Vector2(CuadroDeJuego[19 - y, x].coordenadaX, CuadroDeJuego[19 - y, x].coordenadaY);
+                CuadroDeJuego[19 - y, x].seta = Instantiate(Seta, coordenadas, Quaternion.identity);
             }
         }
     }
@@ -174,7 +176,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         CoordinateSetting();
-        MushroomBoolSetting();
+        MushroomBoolSetting(10, 25);
         MushroomInstance();
         SnakeInit();
         InitCopia();
@@ -191,15 +193,15 @@ public class GameManager : MonoBehaviour
             _elapsedTime += Time.deltaTime;
             if(_elapsedTime > _respawnTime)
             {
+                MushroomRearange();
+                MushroomInstance();
                 Player.SetActive(true);
                 Player.transform.position = _spawnPoint.position;
                 _dead = false;
                 _elapsedTime = 0;
                 UIManager.Instance.gameOver.SetActive(false);
-                MushroomDelete();
-                MushroomBoolSetting(); 
-                MushroomInstance();
             }
+            
         }
         for (int i = 0; i < 20; i++)
         {
@@ -220,21 +222,26 @@ public class GameManager : MonoBehaviour
                         if (Player != null) Player.GetComponent<SpriteRenderer>().color = Color.cyan;
                         break;
                     case ColorJuego.Rojo:
-                        if (CuadroDeJuego[i, j].hayCabeza && CuadroDeJuego[i, j].cabeza != null) CuadroDeJuego[i, j].cabeza.GetComponent<SpriteRenderer>().color = Color.red;
-                        if (CuadroDeJuego[i, j].haySeta && CuadroDeJuego[i, j].seta != null) CuadroDeJuego[i, j].seta.GetComponent<SpriteRenderer>().color = Color.red;
-                        if (CuadroDeJuego[i, j].hayCuerpo && CuadroDeJuego[i, j].cuerpo != null) CuadroDeJuego[i, j].cuerpo.GetComponent<SpriteRenderer>().color = Color.red;
+                        if (CuadroDeJuego[i, j].cabeza != null) CuadroDeJuego[i, j].cabeza.GetComponent<SpriteRenderer>().color = Color.red;
+                        if (CuadroDeJuego[i, j].seta != null) CuadroDeJuego[i, j].seta.GetComponent<SpriteRenderer>().color = Color.red;
+                        if (CuadroDeJuego[i, j].cuerpo != null) CuadroDeJuego[i, j].cuerpo.GetComponent<SpriteRenderer>().color = Color.red;
                         if (Player != null) Player.GetComponent<SpriteRenderer>().color = Color.cyan;
                         break;
                     case ColorJuego.Amarillo:
-                        if (CuadroDeJuego[i, j].hayCabeza && CuadroDeJuego[i, j].cabeza != null) CuadroDeJuego[i, j].cabeza.GetComponent<SpriteRenderer>().color = Color.yellow;
-                        if (CuadroDeJuego[i, j].haySeta && CuadroDeJuego[i, j].seta != null) CuadroDeJuego[i, j].seta.GetComponent<SpriteRenderer>().color = Color.yellow;
-                        if (CuadroDeJuego[i, j].hayCuerpo && CuadroDeJuego[i, j].cuerpo != null) CuadroDeJuego[i, j].cuerpo.GetComponent<SpriteRenderer>().color = Color.yellow;
+                        if (CuadroDeJuego[i, j].cabeza != null) CuadroDeJuego[i, j].cabeza.GetComponent<SpriteRenderer>().color = Color.yellow;
+                        if (CuadroDeJuego[i, j].seta != null) CuadroDeJuego[i, j].seta.GetComponent<SpriteRenderer>().color = Color.yellow;
+                        if (CuadroDeJuego[i, j].cuerpo != null) CuadroDeJuego[i, j].cuerpo.GetComponent<SpriteRenderer>().color = Color.yellow;
                         if (Player != null) Player.GetComponent<SpriteRenderer>().color = Color.cyan;
                         break;
                 }
             }
         }
-        if (snakeLifes == 0) SnakeInit();
+        if (snakeLifes == 0)
+        {
+            currentColor = (ColorJuego)Random.Range(0, 4);
+            SnakeInit();
+            snakeLifes = serpiente.Length;
+        }
     }
 
     public void CopiaASerpiente()
@@ -345,9 +352,6 @@ public class GameManager : MonoBehaviour
                 }
             }
 
-        }
-        
-           
-                  
+        }       
     }
 }
