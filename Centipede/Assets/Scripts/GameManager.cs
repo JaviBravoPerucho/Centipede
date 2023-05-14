@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get { return _instance; } }
 
     public enum Direction { Left, Right, Up, Down }
-    public enum ColorJuego { Normal, Rojo, Cyan, Amarillo }
+    public enum ColorJuego { Normal, Rojo, Amarillo }
     [SerializeField]
     private Transform _spawnPoint;
     [SerializeField]
@@ -211,28 +211,28 @@ public class GameManager : MonoBehaviour
                 switch (currentColor)
                 { 
                     case ColorJuego.Normal:
-                        if (CuadroDeJuego[i, j].hayCabeza && CuadroDeJuego[i, j].cabeza != null) CuadroDeJuego[i, j].cabeza.GetComponent<SpriteRenderer>().color = Color.green;
-                       // if (CuadroDeJuego[i, j].haySeta && CuadroDeJuego[i, j].seta != null) CuadroDeJuego[i, j].seta.GetComponent<SpriteRenderer>().color = Color.green;
-                        if (CuadroDeJuego[i, j].hayCuerpo && CuadroDeJuego[i, j].cuerpo != null) CuadroDeJuego[i, j].cuerpo.GetComponent<SpriteRenderer>().color = Color.green;
-                        if (Player != null) Player.GetComponent<SpriteRenderer>().color = Color.cyan;
+                        if (CuadroDeJuego[i, j].cabeza != null) CuadroDeJuego[i, j].cabeza.GetComponent<SpriteRenderer>().color = Color.green;
+                        if (CuadroDeJuego[i, j].seta != null) CuadroDeJuego[i, j].seta.GetComponent<SpriteRenderer>().color = Color.green;
+                        if (CuadroDeJuego[i, j].cuerpo != null) CuadroDeJuego[i, j].cuerpo.GetComponent<SpriteRenderer>().color = Color.green;
+                        if (Player != null) Player.GetComponent<SpriteRenderer>().color = Color.green;
                         break;
-                    case ColorJuego.Cyan:
+                    /*case ColorJuego.Cyan:
                         if(CuadroDeJuego[i, j].cabeza != null) CuadroDeJuego[i, j].cabeza.GetComponent<SpriteRenderer>().color = Color.cyan;
                         if (CuadroDeJuego[i, j].seta != null) CuadroDeJuego[i, j].seta.GetComponent<SpriteRenderer>().color = Color.cyan;
                         if (CuadroDeJuego[i, j].cuerpo != null) CuadroDeJuego[i, j].cuerpo.GetComponent<SpriteRenderer>().color = Color.cyan;
                         if (Player != null) Player.GetComponent<SpriteRenderer>().color = Color.cyan;
-                        break;
+                        break;*/
                     case ColorJuego.Rojo:
                         if (CuadroDeJuego[i, j].cabeza != null) CuadroDeJuego[i, j].cabeza.GetComponent<SpriteRenderer>().color = Color.red;
                         if (CuadroDeJuego[i, j].seta != null) CuadroDeJuego[i, j].seta.GetComponent<SpriteRenderer>().color = Color.red;
                         if (CuadroDeJuego[i, j].cuerpo != null) CuadroDeJuego[i, j].cuerpo.GetComponent<SpriteRenderer>().color = Color.red;
-                        if (Player != null) Player.GetComponent<SpriteRenderer>().color = Color.cyan;
+                        if (Player != null) Player.GetComponent<SpriteRenderer>().color = Color.red;
                         break;
                     case ColorJuego.Amarillo:
                         if (CuadroDeJuego[i, j].cabeza != null) CuadroDeJuego[i, j].cabeza.GetComponent<SpriteRenderer>().color = Color.yellow;
                         if (CuadroDeJuego[i, j].seta != null) CuadroDeJuego[i, j].seta.GetComponent<SpriteRenderer>().color = Color.yellow;
                         if (CuadroDeJuego[i, j].cuerpo != null) CuadroDeJuego[i, j].cuerpo.GetComponent<SpriteRenderer>().color = Color.yellow;
-                        if (Player != null) Player.GetComponent<SpriteRenderer>().color = Color.cyan;
+                        if (Player != null) Player.GetComponent<SpriteRenderer>().color = Color.yellow;
                         break;
                 }
             }
@@ -320,7 +320,7 @@ public class GameManager : MonoBehaviour
         }
         if (muerta)
         {
-            currentColor = (ColorJuego)Random.Range(0, 4);
+            currentColor = (ColorJuego)Random.Range(0, 3);
             SnakeInit();
            // SetCabezasSnake();
         }
