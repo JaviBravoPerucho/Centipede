@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 6322556201173994523}
   - component: {fileID: 6211556380791499651}
   - component: {fileID: 1275164552863004360}
+  - component: {fileID: 4867448846445470694}
+  - component: {fileID: 7477051127808963391}
   m_Layer: 0
   m_Name: Seta
   m_TagString: Untagged
@@ -115,3 +117,35 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.045
+--- !u!95 &4867448846445470694
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8144117921908104197}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1e15ce4f57c7a2b47a6bd5e2de484f3b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &7477051127808963391
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8144117921908104197}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0d93c9ed9398724c88c52017394ae58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
