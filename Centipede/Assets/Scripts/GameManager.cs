@@ -258,6 +258,7 @@ public class GameManager : MonoBehaviour
         {
             currentColor = (ColorJuego)Random.Range(0, 3);
             SnakeInit();
+            InitCopia();
             // SetCabezasSnake();
         }
 
