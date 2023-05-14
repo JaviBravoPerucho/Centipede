@@ -200,7 +200,7 @@ public class GameManager : MonoBehaviour
                 _dead = false;
                 _elapsedTime = 0;
                 UIManager.Instance.gameOver.SetActive(false);
-                SnakeInit();
+               
             }
             
         }
@@ -318,7 +318,7 @@ public class GameManager : MonoBehaviour
                 muerta = false;
             }
         }
-        if (muerta)
+        if (muerta || _dead)
         {
             currentColor = (ColorJuego)Random.Range(0, 4);
             SnakeInit();

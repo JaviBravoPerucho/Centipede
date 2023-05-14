@@ -57,12 +57,39 @@ public class LateralMovement : MonoBehaviour
                             GameManager.Instance.copia[i].Y = GameManager.Instance.serpiente[i].Y - 1;
                         }
 
-                    }
+                    }                 
                     else
                     {
-                        GameManager.Instance.copia[i].currentDirection = GameManager.Direction.Right;
-                        GameManager.Instance.copia[i].X = GameManager.Instance.serpiente[i].X + 1;
-                        GameManager.Instance.copia[i].Y = GameManager.Instance.serpiente[i].Y;
+                        bool cambia = false;
+                        for (int j = 0; j < GameManager.Instance.serpiente.Length; j++)
+                        {
+                            if(GameManager.Instance.serpiente[i].X + 1 == GameManager.Instance.serpiente[j].X && GameManager.Instance.serpiente[i].Y == GameManager.Instance.serpiente[j].Y && GameManager.Instance.serpiente[j].currentDirection == GameManager.Direction.Left)
+                            {
+                                cambia = true;
+                            }
+                        }
+                        if(cambia)
+                        {
+                            if (!GameManager.Instance.serpiente[i].goesUp)
+                            {
+                                GameManager.Instance.copia[i].currentDirection = GameManager.Direction.Down;
+                                GameManager.Instance.copia[i].X = GameManager.Instance.serpiente[i].X;
+                                GameManager.Instance.copia[i].Y = GameManager.Instance.serpiente[i].Y + 1;
+                            }
+                            else
+                            {
+                                GameManager.Instance.copia[i].currentDirection = GameManager.Direction.Up;
+                                GameManager.Instance.copia[i].X = GameManager.Instance.serpiente[i].X;
+                                GameManager.Instance.copia[i].Y = GameManager.Instance.serpiente[i].Y - 1;
+                            }
+                        }
+                        else
+                        {
+                            GameManager.Instance.copia[i].currentDirection = GameManager.Direction.Right;
+                            GameManager.Instance.copia[i].X = GameManager.Instance.serpiente[i].X + 1;
+                            GameManager.Instance.copia[i].Y = GameManager.Instance.serpiente[i].Y;
+                        }
+                       
 
                     }
                 }
@@ -103,9 +130,35 @@ public class LateralMovement : MonoBehaviour
                     }
                     else
                     {
-                        GameManager.Instance.copia[i].currentDirection = GameManager.Direction.Left;
-                        GameManager.Instance.copia[i].X = GameManager.Instance.serpiente[i].X - 1;
-                        GameManager.Instance.copia[i].Y = GameManager.Instance.serpiente[i].Y;
+                        bool cambia = false;
+                        for (int j = 0; j < GameManager.Instance.serpiente.Length; j++)
+                        {
+                            if (GameManager.Instance.serpiente[i].X - 1 == GameManager.Instance.serpiente[j].X && GameManager.Instance.serpiente[i].Y == GameManager.Instance.serpiente[j].Y && GameManager.Instance.serpiente[j].currentDirection == GameManager.Direction.Right)
+                            {
+                                cambia = true;
+                            }
+                        }
+                        if (cambia)
+                        {
+                            if (!GameManager.Instance.serpiente[i].goesUp)
+                            {
+                                GameManager.Instance.copia[i].currentDirection = GameManager.Direction.Down;
+                                GameManager.Instance.copia[i].X = GameManager.Instance.serpiente[i].X;
+                                GameManager.Instance.copia[i].Y = GameManager.Instance.serpiente[i].Y + 1;
+                            }
+                            else
+                            {
+                                GameManager.Instance.copia[i].currentDirection = GameManager.Direction.Up;
+                                GameManager.Instance.copia[i].X = GameManager.Instance.serpiente[i].X;
+                                GameManager.Instance.copia[i].Y = GameManager.Instance.serpiente[i].Y - 1;
+                            }
+                        }
+                        else
+                        {
+                            GameManager.Instance.copia[i].currentDirection = GameManager.Direction.Left;
+                            GameManager.Instance.copia[i].X = GameManager.Instance.serpiente[i].X - 1;
+                            GameManager.Instance.copia[i].Y = GameManager.Instance.serpiente[i].Y;
+                        }
                     }
                     /*if (GameManager.Instance.CuadroDeJuego[GameManager.Instance.serpiente[i].Y, GameManager.Instance.serpiente[i].X - 1].haySeta)
                     {
