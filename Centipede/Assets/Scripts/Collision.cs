@@ -17,6 +17,10 @@ public class Collision : MonoBehaviour
             GameManager.Instance.LoseLife();
             
         }
+        else if(collision.gameObject.GetComponent<DamageComponent>())
+        {
+            GameManager.Instance.LoseLife();
+        }
 
     }
 }
