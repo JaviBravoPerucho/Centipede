@@ -10,7 +10,7 @@ public class Disparos : MonoBehaviour
     private GameObject _bullet;
     private float _time= 0.25f;
     private float _elapsedtime;
-    private bool disparado_ = false;
+    public bool disparado_ = false;
 
     // Start is called before the first frame update
     void Start()
