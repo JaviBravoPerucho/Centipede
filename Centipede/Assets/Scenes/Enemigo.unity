@@ -1180,7 +1180,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 58e84e71496c8544383650c769eac41b, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.3
+  m_Volume: 0.115
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -1276,6 +1276,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16be530c31e42d7409f2874d3c7e4294, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _myshotClip: {fileID: 8300000, guid: ae912be1a602ff3438674eb36a3197ba, type: 3}
+  _myexplosionClip: {fileID: 8300000, guid: f620bb50ffd912f46b4747d9ad492754, type: 3}
+  _mydeathClip: {fileID: 8300000, guid: c3aea355a54b07d43886e8fed8c2ebbc, type: 3}
 --- !u!4 &1658366454
 Transform:
   m_ObjectHideFlags: 0
