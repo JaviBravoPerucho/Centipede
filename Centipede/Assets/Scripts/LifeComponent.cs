@@ -12,6 +12,10 @@ public class LifeComponent : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(vida<=0) Destroy(gameObject);
+        if (vida <= 0)
+        {
+            UIManager.Instance.Points(300);
+            Destroy(gameObject);
+        }
     }
 }
