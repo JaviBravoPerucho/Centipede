@@ -14,7 +14,8 @@ public class LifeComponent : MonoBehaviour
     {
         if (vida <= 0)
         {
-            UIManager.Instance.Points(300);
+            if(!GetComponent<DamageComponent>())
+            UIManager.Instance.Points(4);
             Destroy(gameObject);
         }
     }

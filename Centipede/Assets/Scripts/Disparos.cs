@@ -25,6 +25,7 @@ public class Disparos : MonoBehaviour
         {
             if (!disparado_)
             {
+                AudioManager.Instance.Shot();
                 Instantiate(_bullet, _bulletSpawner.position, Quaternion.identity);
                 disparado_ = true;
             }

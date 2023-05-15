@@ -6,6 +6,7 @@ using UnityEngine.Video;
 public class AudioManager : MonoBehaviour
 {
     AudioSource _myaudioSource;
+    static private AudioManager _audio;
 
     [SerializeField]
     AudioClip _myshotClip;
@@ -17,8 +18,12 @@ public class AudioManager : MonoBehaviour
     Disparos _shotAvailable;
     GameManager _playerLifes;
 
+    static public AudioManager Instance { get { return _audio; } }
     int vidas;
-    
+    private void Awake()
+    {
+        _audio = this;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -30,7 +35,7 @@ public class AudioManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (_shotAvailable.disparado_)
+       /* if (_shotAvailable.disparado_)
         {
             _myaudioSource.PlayOneShot(_myshotClip);
         }
@@ -44,11 +49,19 @@ public class AudioManager : MonoBehaviour
         if (_playerLifes.playerLifes == 0)
         {
             Invoke("DeathClip", 2.0f);
-        }
+        }*/
     }
 
-    void DeathClip()
+    public void DeathClip()
     {
         _myaudioSource.PlayOneShot(_mydeathClip);
+    }
+    public void Shot()
+    {
+        _myaudioSource.PlayOneShot(_myshotClip);
+    }
+    public void Explosion()
+    {
+        _myaudioSource.PlayOneShot(_myexplosionClip);
     }
 }

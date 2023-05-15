@@ -57,6 +57,7 @@ public class GameManager : MonoBehaviour
 
     public void LoseLife()
     {
+        AudioManager.Instance.Explosion();
         if (playerLifes > 1)
         {
             playerLifes--;
@@ -66,6 +67,7 @@ public class GameManager : MonoBehaviour
         }
         else if(playerLifes == 1)
         {
+            AudioManager.Instance.DeathClip();
             playerLifes--;
             Player.SetActive(false);
             _dead = true;
@@ -347,6 +349,7 @@ public class GameManager : MonoBehaviour
             _elapsedTime += Time.deltaTime;
             if(_elapsedTime > _respawnTime)
             {
+                
                 MushroomRearange();
                 MushroomInstance();
                 Player.SetActive(true);
